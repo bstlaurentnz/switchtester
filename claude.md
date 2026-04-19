@@ -66,18 +66,18 @@ Create a JSON file in `games/` following the schema in `games/mata_hari.json`. `
 | Strobe 0 | 14 | 8 | J2-1 | J3-2 |
 | Strobe 1 | 15 | 10 | J2-2 | J3-3 |
 | Strobe 2 | 18 | 12 | J2-3 | -- |
-| Strobe 3 | 23 | 16 | J2-4 | -- |
-| Strobe 4 | 24 | 18 | J2-5 | -- |
+| Strobe 3 | 24 | 18 | J2-4 | -- |
+| Strobe 4 | 23 | 16 | J2-5 | -- |
 | Return I0 | 25 | 22 | J2-8 | J3-9 |
 | Return I1 | 8 | 24 | J2-9 | J3-10 |
 | Return I2 | 7 | 26 | J2-10 | J3-11 |
 | Return I3 | 1 | 28 | J2-11 | J3-12 |
-| Return I4 | 12 | 32 | J2-12 | J3-13 |
-| Return I5 | 16 | 36 | J2-13 | J3-14 |
-| Return I6 | 20 | 38 | J2-14 | J3-15 |
-| Return I7 | 21 | 40 | J2-15 | J3-16 |
+| Return I4 | 16 | 38 | J2-12 | J3-13 |
+| Return I5 | 12 | 32 | J2-13 | J3-14 |
+| Return I6 | 21 | 40 | J2-14 | J3-15 |
+| Return I7 | 20 | 36 | J2-15 | J3-16 |
 
-Strobes 0-1 and all Returns need a Y-split to reach both J2 and J3. Strobes 2-4 are J2 only. BCM 1 (pin 28) has a fixed 1.8k pullup on the Pi board but works fine as an input here. J3 key position is unknown -- check the physical harness.
+Strobes 0-1 and all Returns need a Y-split to reach both J2 and J3. Strobes 2-4 are J2 only. BCM 1 (pin 28) has a fixed 1.8k pullup on the Pi board but works fine as an input here. J3 key position is pin 4 (KEY). Strobe 3, Return I4, and Return I6 are routed via jumper wires on the underside of the breakout board -- see wiring.md for full board layout.
 
 J2 is a 15-pin 0.100" Molex KK (playfield switches). J3 is a 16-pin 0.100" Molex KK (cabinet switches). Not 0.156" edge connectors. No ground connection to the game is needed.
 

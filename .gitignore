@@ -10,3 +10,6 @@ __pycache__/
 # IDE
 .vscode/
 .idea/
+
+# Claude Code internal files
+.claude/
