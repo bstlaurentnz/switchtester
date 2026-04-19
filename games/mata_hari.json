@@ -1,0 +1,67 @@
+{
+    "game": "Bally Mata Hari",
+    "platform": "-17",
+    "strobe_wires": {
+        "0": "Wht-Red (51) / Red-Yel (13)",
+        "1": "Gry-Yel (93) / Red-Grn (14)",
+        "2": "Wht-Blu (52)",
+        "3": "Wht-Yel (53)",
+        "4": "Yel-Red (31)"
+    },
+    "return_wires": {
+        "0": "Wht-Grn (54) / Red-Wht (15)",
+        "1": "Wht-Brn (56) / Brn-Wht (65)",
+        "2": "Wht-Orn (57) / Blu (20)",
+        "3": "Wht-Blk (58) / Blu-Red (21)",
+        "4": "Brn (60) / Blu-Yel (23)",
+        "5": "Brn-Yel (63) / Blu-Wht (25)",
+        "6": "Brn-Wht (65) / Blu-Orn (27)",
+        "7": "Orn (70) / Yel (30)"
+    },
+    "switches": [
+        {"col": 0, "row": 0, "num": 1, "name": "Not Used"},
+        {"col": 0, "row": 1, "num": 2, "name": "Not Used"},
+        {"col": 0, "row": 2, "num": 3, "name": "Not Used"},
+        {"col": 0, "row": 3, "num": 4, "name": "Not Used"},
+        {"col": 0, "row": 4, "num": 5, "name": "Not Used"},
+        {"col": 0, "row": 5, "num": 6, "name": "Credit Button"},
+        {"col": 0, "row": 6, "num": 7, "name": "Tilt (3)"},
+        {"col": 0, "row": 7, "num": 8, "name": "Outhole"},
+
+        {"col": 1, "row": 0, "num": 9, "name": "Coin Chute III (Right)"},
+        {"col": 1, "row": 1, "num": 10, "name": "Coin Chute I (Left)"},
+        {"col": 1, "row": 2, "num": 11, "name": "Coin Chute II (Middle)"},
+        {"col": 1, "row": 3, "num": 12, "name": "Not Used"},
+        {"col": 1, "row": 4, "num": 13, "name": "Not Used"},
+        {"col": 1, "row": 5, "num": 14, "name": "Not Used"},
+        {"col": 1, "row": 6, "num": 15, "name": "Not Used"},
+        {"col": 1, "row": 7, "num": 16, "name": "Slam (2)"},
+
+        {"col": 2, "row": 0, "num": 17, "name": "Right Drop Target D (Bottom)"},
+        {"col": 2, "row": 1, "num": 18, "name": "Right Drop Target C"},
+        {"col": 2, "row": 2, "num": 19, "name": "Right Drop Target B"},
+        {"col": 2, "row": 3, "num": 20, "name": "Right Drop Target A (Top)"},
+        {"col": 2, "row": 4, "num": 21, "name": "Left Drop Target D (Bottom)"},
+        {"col": 2, "row": 5, "num": 22, "name": "Left Drop Target C"},
+        {"col": 2, "row": 6, "num": 23, "name": "Left Drop Target B"},
+        {"col": 2, "row": 7, "num": 24, "name": "Left Drop Target A (Top)"},
+
+        {"col": 3, "row": 0, "num": 25, "name": "Right Flipper Feeder Lane"},
+        {"col": 3, "row": 1, "num": 26, "name": "Left Flipper Feeder Lane"},
+        {"col": 3, "row": 2, "num": 27, "name": "10 Point Drop Target Rebound (2)"},
+        {"col": 3, "row": 3, "num": 28, "name": "Right 'B' Lane"},
+        {"col": 3, "row": 4, "num": 29, "name": "Left 'A' Lane"},
+        {"col": 3, "row": 5, "num": 30, "name": "Top 'B' Lane"},
+        {"col": 3, "row": 6, "num": 31, "name": "Top 'A' Lane"},
+        {"col": 3, "row": 7, "num": 32, "name": "Top Saucer"},
+
+        {"col": 4, "row": 0, "num": 33, "name": "Right Outlane"},
+        {"col": 4, "row": 1, "num": 34, "name": "Left Outlane"},
+        {"col": 4, "row": 2, "num": 35, "name": "Right Slingshot"},
+        {"col": 4, "row": 3, "num": 36, "name": "Left Slingshot"},
+        {"col": 4, "row": 4, "num": 37, "name": "Bottom Right Thumper Bumper"},
+        {"col": 4, "row": 5, "num": 38, "name": "Bottom Left Thumper Bumper"},
+        {"col": 4, "row": 6, "num": 39, "name": "Top Right Thumper Bumper"},
+        {"col": 4, "row": 7, "num": 40, "name": "Top Left Thumper Bumper"}
+    ]
+}

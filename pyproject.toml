@@ -1,0 +1,18 @@
+[project]
+name = "switchtester"
+version = "0.1.0"
+description = "Bally switch matrix tester for Raspberry Pi"
+requires-python = ">=3.9"
+dependencies = [
+    "RPi.GPIO>=0.7.1",
+]
+
+[project.scripts]
+switch-tester = "switchtester.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+# RPi.GPIO only installs on Linux/ARM -- run uv sync on the Pi
