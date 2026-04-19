@@ -11,8 +11,8 @@ import time
 import RPi.GPIO as GPIO
 
 # BCM GPIO numbers -- must match physical wiring to J2/J3
-COL_PINS = [14, 15, 18, 23, 24]   # Strobe 0-4
-ROW_PINS = [25, 8, 7, 1, 12, 16, 20, 21]  # Return I0-I7
+COL_PINS = [14, 15, 18, 24, 23]        # Strobe 0-4
+ROW_PINS = [25, 8, 7, 1, 16, 12, 21, 20]  # Return I0-I7
 
 
 def load_game(path):
