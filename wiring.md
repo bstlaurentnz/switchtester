@@ -49,4 +49,4 @@ Perfboard: 20 columns x 5 rows, 0.100" pitch
 
 ## Pin definition
 
-platforms/as-2518.17.json contains all the data needed to support the AS-2518-17 J2 and J3 connectors.
+platforms/as-2518-17.json contains all the data needed to support the AS-2518-17 J2 and J3 connectors.
