@@ -7,9 +7,9 @@ All user-facing commands live here. Hardware logic is in tester.py.
 import sys
 import time
 
-import RPi.GPIO as GPIO
-
 from .tester import (
+    GPIO,
+    GPIO_LIBRARY,
     diode_scan,
     load_game,
     read_switch,
@@ -124,6 +124,7 @@ COMMANDS = {
     "w": ("walk test (guided switch-by-switch)", cmd_walk_test),
     "s": ("snapshot matrix state", cmd_snapshot),
     "l": ("list all switches with wire colours", cmd_list_switches),
+    "h": ("show this help", None),
     "q": ("quit", None),
 }
 
@@ -139,6 +140,7 @@ def main():
     print(f"{game['game_name']} ({game['platform']}) Switch Matrix Tester")
     print("=" * 50)
     print(f"Matrix: {game['num_cols']} columns x {game['num_rows']} rows")
+    print(f"GPIO:   {GPIO_LIBRARY}")
     print()
     print("Commands:")
     for key, (description, _) in COMMANDS.items():
@@ -150,12 +152,18 @@ def main():
             cmd = input("> ").strip().lower()
             if cmd == "q":
                 break
-            entry = COMMANDS.get(cmd)
-            if entry:
-                _, fn = entry
-                fn(game)
+            elif cmd == "h":
+                print()
+                for key, (description, _) in COMMANDS.items():
+                    print(f"  {key} = {description}")
+                print()
             else:
-                print("Unknown command. Use " + "/".join(COMMANDS.keys()))
+                entry = COMMANDS.get(cmd)
+                if entry:
+                    _, fn = entry
+                    fn(game)
+                else:
+                    print("Unknown command. Use " + "/".join(COMMANDS.keys()))
     except (KeyboardInterrupt, EOFError):
         pass
     finally:

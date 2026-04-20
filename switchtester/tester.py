@@ -8,15 +8,102 @@ No user interaction here -- all print/input lives in cli.py.
 import json
 import time
 
-import RPi.GPIO as GPIO
-
 # BCM GPIO numbers -- must match physical wiring to J2/J3
 COL_PINS = [14, 15, 18, 24, 23]        # Strobe 0-4
 ROW_PINS = [25, 8, 7, 1, 16, 12, 21, 20]  # Return I0-I7
 
 
+class _LgpioCompat:
+    """Thin RPi.GPIO-compatible wrapper around lgpio, for Pi 5 support."""
+
+    BCM = 11
+    OUT = 0
+    IN = 1
+    HIGH = 1
+    LOW = 0
+    PUD_UP = 22
+    PUD_DOWN = 21
+
+    def __init__(self, lgpio_mod, chip):
+        self._lg = lgpio_mod
+        self._h = lgpio_mod.gpiochip_open(chip)
+
+    def setmode(self, mode):
+        pass
+
+    def setwarnings(self, state):
+        pass
+
+    def setup(self, pin, direction, initial=None, pull_up_down=None):
+        try:
+            self._lg.gpio_free(self._h, pin)
+        except Exception:
+            pass
+        if direction == self.OUT:
+            level = 1 if (initial is None or initial == self.HIGH) else 0
+            self._lg.gpio_claim_output(self._h, pin, level)
+        else:
+            flags = 0
+            if pull_up_down == self.PUD_UP:
+                flags = self._lg.SET_PULL_UP
+            elif pull_up_down == self.PUD_DOWN:
+                flags = self._lg.SET_PULL_DOWN
+            self._lg.gpio_claim_input(self._h, pin, flags)
+
+    def output(self, pin, value):
+        self._lg.gpio_write(self._h, pin, 1 if value else 0)
+
+    def input(self, pin):
+        return self._lg.gpio_read(self._h, pin)
+
+    def cleanup(self):
+        if self._h is not None:
+            self._lg.gpiochip_close(self._h)
+            self._h = None
+
+
+def _detect_pi_gpiochip():
+    try:
+        with open("/proc/device-tree/model") as f:
+            model = f.read()
+        if "Raspberry Pi 5" in model:
+            return 4
+    except OSError:
+        pass
+    return 0
+
+
+def _load_gpio():
+    """Try RPi.GPIO first; fall back to lgpio wrapper on Pi 5."""
+    chip = _detect_pi_gpiochip()
+
+    if chip == 0:
+        # Pi 1-4: RPi.GPIO works
+        try:
+            import RPi.GPIO as gpio
+            gpio.setmode(gpio.BCM)
+            gpio.setwarnings(False)
+            return gpio, "RPi.GPIO"
+        except (RuntimeError, ImportError):
+            pass
+
+    # Pi 5 (chip 4) or RPi.GPIO unavailable: use lgpio
+    try:
+        import lgpio as _lg
+        return _LgpioCompat(_lg, chip), f"lgpio (gpiochip{chip})"
+    except ImportError:
+        pass
+
+    raise RuntimeError(
+        "No GPIO library available.\n"
+        "On Pi 5: sudo apt install python3-lgpio"
+    )
+
+
+GPIO, GPIO_LIBRARY = _load_gpio()
+
+
 def load_game(path):
-    """Load game definition from a JSON file."""
     with open(path, "r") as f:
         data = json.load(f)
 
