@@ -165,13 +165,13 @@ def load_game(path):
 
 
 def setup_gpio(game):
-    """Configure GPIO for normal scanning (cols = outputs, rows = inputs)."""
+    """Configure GPIO for normal scanning (rows = outputs/strobe, cols = inputs/sense)."""
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
-    for i in range(game["num_cols"]):
-        GPIO.setup(COL_PINS[i], GPIO.OUT, initial=GPIO.HIGH)
     for i in range(game["num_rows"]):
-        GPIO.setup(ROW_PINS[i], GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(ROW_PINS[i], GPIO.OUT, initial=GPIO.HIGH)
+    for i in range(game["num_cols"]):
+        GPIO.setup(COL_PINS[i], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def switch_info(game, col, row):
@@ -188,19 +188,19 @@ def switch_info(game, col, row):
 
 def scan_matrix(game):
     """
-    Scan all columns and return a set of closed switch positions.
+    Scan all rows and return a set of closed switch positions.
 
-    Drives one column low at a time, reads all rows.
+    Drives one row low at a time, reads all cols.
     Returns: set of (col, row) tuples for switches that are closed.
     """
     closed = set()
-    for c in range(game["num_cols"]):
-        GPIO.output(COL_PINS[c], GPIO.LOW)
+    for r in range(game["num_rows"]):
+        GPIO.output(ROW_PINS[r], GPIO.LOW)
         time.sleep(0.0002)
-        for r in range(game["num_rows"]):
-            if GPIO.input(ROW_PINS[r]) == GPIO.LOW:
+        for c in range(game["num_cols"]):
+            if GPIO.input(COL_PINS[c]) == GPIO.LOW:
                 closed.add((c, r))
-        GPIO.output(COL_PINS[c], GPIO.HIGH)
+        GPIO.output(ROW_PINS[r], GPIO.HIGH)
     return closed
 
 
@@ -208,32 +208,27 @@ def diode_scan(game):
     """
     Reverse bias scan to detect shorted diodes.
 
-    Reconfigures rows as outputs and columns as inputs.
-    Drives each row low -- if any column reads low, that diode is shorted.
+    Reconfigures cols as outputs and rows as inputs.
+    Drives each col low -- if any row reads low, that diode is shorted.
 
     Returns: list of (col, row) tuples with shorted diodes.
     Restores normal GPIO config before returning.
     """
-    for i in range(game["num_cols"]):
-        GPIO.setup(COL_PINS[i], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    for i in range(game["num_rows"]):
-        GPIO.setup(ROW_PINS[i], GPIO.OUT, initial=GPIO.HIGH)
-
-    shorted = []
-    for r in range(game["num_rows"]):
-        GPIO.output(ROW_PINS[r], GPIO.LOW)
-        time.sleep(0.0002)
-        for c in range(game["num_cols"]):
-            if GPIO.input(COL_PINS[c]) == GPIO.LOW:
-                shorted.append((c, r))
-        GPIO.output(ROW_PINS[r], GPIO.HIGH)
-
-    # Restore normal scanning config
-    for i in range(game["num_cols"]):
-        GPIO.setup(COL_PINS[i], GPIO.OUT, initial=GPIO.HIGH)
     for i in range(game["num_rows"]):
         GPIO.setup(ROW_PINS[i], GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    for i in range(game["num_cols"]):
+        GPIO.setup(COL_PINS[i], GPIO.OUT, initial=GPIO.HIGH)
 
+    shorted = []
+    for c in range(game["num_cols"]):
+        GPIO.output(COL_PINS[c], GPIO.LOW)
+        time.sleep(0.0002)
+        for r in range(game["num_rows"]):
+            if GPIO.input(ROW_PINS[r]) == GPIO.LOW:
+                shorted.append((c, r))
+        GPIO.output(COL_PINS[c], GPIO.HIGH)
+
+    setup_gpio(game)
     return shorted
 
 
@@ -241,12 +236,12 @@ def read_switch(game, col, row):
     """
     Read a single switch. Returns True if closed.
 
-    Drives the column low, reads the row, restores the column.
+    Drives the row low, reads the col, restores the row.
     """
-    GPIO.output(COL_PINS[col], GPIO.LOW)
+    GPIO.output(ROW_PINS[row], GPIO.LOW)
     time.sleep(0.001)
-    closed = GPIO.input(ROW_PINS[row]) == GPIO.LOW
-    GPIO.output(COL_PINS[col], GPIO.HIGH)
+    closed = GPIO.input(COL_PINS[col]) == GPIO.LOW
+    GPIO.output(ROW_PINS[row], GPIO.HIGH)
     return closed
 
 

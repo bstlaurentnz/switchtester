@@ -49,9 +49,9 @@ games/*.json            -- per-game switch definitions
 
 ### Scanning
 
-`scan_matrix()` returns a `set` of `(col, row)` tuples. The monitor loop uses set subtraction (`current - prev`, `prev - current`) to detect open/close events.
+`scan_matrix()` drives each row (return) low in turn and reads all cols (strobes). With the diode cathode toward the row, this forward-biases the diode path and pulls the col input low for any closed switch. Returns a `set` of `(col, row)` tuples; the monitor loop uses set subtraction (`current - prev`, `prev - current`) to detect open/close events.
 
-`diode_scan()` reverses GPIO direction (rows -> outputs, cols -> inputs), drives each row low, and returns a list of `(col, row)` tuples where reverse current flowed (shorted diode). Always restores normal config before returning.
+`diode_scan()` reverses GPIO direction (cols -> outputs, rows -> inputs), drives each col low, and returns a list of `(col, row)` tuples where reverse current flowed (shorted diode). Always restores normal config before returning.
 
 ### Adding a new game
 
@@ -81,7 +81,7 @@ Strobes 0-1 and all Returns need a Y-split to reach both J2 and J3. Strobes 2-4 
 
 J2 is a 15-pin 0.100" Molex KK (playfield switches). J3 is a 16-pin 0.100" Molex KK (cabinet switches). Not 0.156" edge connectors. No ground connection to the game is needed.
 
-Switch matrix: 5 columns x 8 rows, active-low strobes and returns, 1N4148 diode in series with each switch (anode toward row), 0.047 uF ceramic disc cap across contacts.
+Switch matrix: 5 columns x 8 rows, active-low strobes and returns, 1N4148 diode in series with each switch (cathode toward row / anode toward col strobe), 0.047 uF ceramic disc cap across certain contacts.
 
 ## Planned Features (not yet implemented)
 
