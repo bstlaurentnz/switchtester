@@ -1,14 +1,17 @@
-# Switch Tester Breakout Board Wiring
+# Switch Tester Breakout Board Wiring - AS-2518-17
+
+![AS-2518-17 layout](switch_tester_perfboard_layout_as-2518-17.svg)
+
 
 ## Board Layout
 
 Perfboard: 20 columns x 5 rows, 0.100" pitch
 
 - Row 1: Raspberry Pi even-numbered GPIO header pins (2x20 socket, even side)
-- Row 2: (spare)
+- Row 2: (spare) - leaves room to solder jumpers
 - Row 3: J2 - 15 pin 0.100" Molex KK (playfield switches)
-- Row 4: J3 - 16 pin 0.100" Molex KK (cabinet switches)
-- Row 5: (spare)
+- Row 4: (spare) - leaves room to solder jumpers
+- Row 5: J3 - 16 pin 0.100" Molex KK (cabinet switches)
 
 ## Pin Assignments
 
@@ -43,9 +46,7 @@ Perfboard: 20 columns x 5 rows, 0.100" pitch
 2. Col 15 --> col 19: Return I4 (4 columns, J2-12 and J3-13 soldered together)
 3. Col 17 --> col 20: Return I6 (3 columns, J2-14 and J3-15 soldered together)
 
-## GPIO Pin Assignments (for switch_tester.py)
 
-```python
-COL_PINS = [14, 15, 18, 24, 23]  # Strobe 0-4
-ROW_PINS = [25, 8, 7, 1, 16, 12, 21, 20]  # Return I0-I7
-```
+## Pin definition
+
+platforms/as-2518.17.json contains all the data needed to support the AS-2518-17 J2 and J3 connectors.

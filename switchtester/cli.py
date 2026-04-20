@@ -12,7 +12,6 @@ from .tester import (
     GPIO,
     GPIO_LIBRARY,
     ROW_PINS,
-    bcm_to_name,
     diode_scan,
     load_game,
     pin_continuity_scan,

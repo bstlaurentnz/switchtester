@@ -261,9 +261,6 @@ def pin_label(bcm):
     return f"BCM {bcm} (unassigned)"
 
 
-def bcm_to_name(bcm):
-    return pin_label(bcm)
-
 
 def remap_strobe(idx, new_bcm):
     """Assign new_bcm to COL_PINS[idx], swapping with wherever new_bcm currently lives."""
