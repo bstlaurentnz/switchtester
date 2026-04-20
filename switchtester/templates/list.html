@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Switch List -- {{ game.game_name }}{% endblock %}
+{% block nav_title %}{{ game.game_name }}{% endblock %}
+{% block nav_links %}<a href="/game/{{ slug }}">Back</a>{% endblock %}
+
+{% block content %}
+<h1>Switch List</h1>
+<table>
+  <thead>
+    <tr>
+      <th>SW</th>
+      <th>Name</th>
+      <th>Strobe</th>
+      <th>Return</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sw in switches %}
+    <tr>
+      <td>{{ sw.num }}</td>
+      <td>{{ sw.name }}</td>
+      <td style="font-size:0.75rem;color:#777">{{ sw.strobe }}</td>
+      <td style="font-size:0.75rem;color:#777">{{ sw.ret }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Monitor -- {{ game.game_name }}{% endblock %}
+{% block nav_title %}{{ game.game_name }}{% endblock %}
+{% block nav_links %}<a href="/game/{{ slug }}">Back</a>{% endblock %}
+
+{% block content %}
+<h1>Monitor</h1>
+<div id="status" style="font-size:0.85rem;color:#888;margin-bottom:0.75rem">Connecting...</div>
+<div id="log" style="font-family:monospace;font-size:0.9rem"></div>
+<script>
+  const log = document.getElementById('log');
+  const status = document.getElementById('status');
+  const es = new EventSource('{{ stream_url }}');
+
+  es.onopen = () => {
+    status.textContent = 'Live';
+    status.style.color = '#5cb85c';
+  };
+
+  es.onmessage = e => {
+    const ev = JSON.parse(e.data);
+    const t = new Date().toLocaleTimeString();
+    const cls = ev.event === 'closed' ? 'badge-closed' : 'badge-opened';
+    const d = document.createElement('div');
+    d.style.marginBottom = '0.4rem';
+    d.innerHTML =
+      '<span style="color:#555;font-size:0.75rem;margin-right:0.5rem">' + t + '</span>' +
+      '<span class="badge ' + cls + '">' + ev.event.toUpperCase() + '</span>' +
+      ' SW' + ev.num + ' ' + ev.name;
+    log.prepend(d);
+    if (log.children.length > 100) log.removeChild(log.lastChild);
+  };
+
+  es.onerror = () => {
+    status.textContent = 'Disconnected -- reload to reconnect';
+    status.style.color = '#e05252';
+  };
+</script>
+{% endblock %}

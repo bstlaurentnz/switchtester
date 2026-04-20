@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Diode Test -- {{ game.game_name }}{% endblock %}
+{% block nav_title %}{{ game.game_name }}{% endblock %}
+{% block nav_links %}<a href="/game/{{ slug }}">Back</a>{% endblock %}
+
+{% block content %}
+<h1>Diode Test</h1>
+{% if results %}
+  <p class="err" style="margin-bottom:1rem">{{ results|length }} shorted diode(s) found:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>SW</th>
+        <th>Name</th>
+        <th>Strobe</th>
+        <th>Return</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in results %}
+      <tr>
+        <td class="err">{{ r.num }}</td>
+        <td>{{ r.name }}</td>
+        <td style="font-size:0.75rem;color:#777">{{ r.strobe }}</td>
+        <td style="font-size:0.75rem;color:#777">{{ r.ret }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="ok" style="font-size:1.1rem;margin-top:0.25rem">No shorted diodes found.</p>
+{% endif %}
+<div style="margin-top:1.5rem">
+  <a href="/game/{{ slug }}/diode" class="btn">Run Again</a>
+</div>
+{% endblock %}

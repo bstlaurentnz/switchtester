@@ -5,10 +5,12 @@ description = "Bally switch matrix tester for Raspberry Pi"
 requires-python = ">=3.9"
 dependencies = [
     "RPi.GPIO>=0.7.1",
+    "flask>=3.0",
 ]
 
 [project.scripts]
 switch-tester = "switchtester.cli:main"
+switch-tester-web = "switchtester.web:main"
 
 [build-system]
 requires = ["hatchling"]
