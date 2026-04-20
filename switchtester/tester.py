@@ -6,11 +6,14 @@ No user interaction here -- all print/input lives in cli.py.
 """
 
 import json
+import os
 import time
 
-# BCM GPIO numbers -- must match physical wiring to J2/J3
-COL_PINS = [14, 15, 18, 24, 23]        # Strobe 0-4
-ROW_PINS = [25, 8, 7, 1, 16, 12, 21, 20]  # Return I0-I7
+# Populated at runtime by load_platform() via load_game()
+COL_PINS = []       # BCM pin numbers for strobes, in order
+ROW_PINS = []       # BCM pin numbers for returns, in order
+_STROBE_LABELS = [] # J2/J3 connector positions for each strobe
+_RETURN_LABELS = [] # J2/J3 connector positions for each return
 
 
 class _LgpioCompat:
@@ -89,7 +92,7 @@ def _load_gpio():
 
     # Pi 5 (chip 4) or RPi.GPIO unavailable: use lgpio
     try:
-        import lgpio as _lg
+        import lgpio as _lg # pyright: ignore[reportMissingImports]
         return _LgpioCompat(_lg, chip), f"lgpio (gpiochip{chip})"
     except ImportError:
         pass
@@ -103,9 +106,41 @@ def _load_gpio():
 GPIO, GPIO_LIBRARY = _load_gpio()
 
 
+def load_platform(path):
+    """Load pin assignments and connector labels from a platform JSON file."""
+    with open(path) as f:
+        data = json.load(f)
+    COL_PINS[:] = data["col_pins"]
+    ROW_PINS[:] = data["row_pins"]
+    _STROBE_LABELS[:] = data.get("strobe_labels", [])
+    _RETURN_LABELS[:] = data.get("return_labels", [])
+
+
+def save_platform(path):
+    """Write current pin assignments back to the platform file, preserving other fields."""
+    try:
+        with open(path) as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        data = {}
+    data["col_pins"] = list(COL_PINS)
+    data["row_pins"] = list(ROW_PINS)
+    data["strobe_labels"] = list(_STROBE_LABELS)
+    data["return_labels"] = list(_RETURN_LABELS)
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2)
+
+
 def load_game(path):
     with open(path, "r") as f:
         data = json.load(f)
+
+    platform = data.get("platform", "")
+    game_dir = os.path.dirname(os.path.abspath(path))
+    platform_path = os.path.normpath(
+        os.path.join(game_dir, "..", "platforms", f"{platform}.json")
+    )
+    load_platform(platform_path)
 
     strobe_wires = {int(k): v for k, v in data.get("strobe_wires", {}).items()}
     return_wires = {int(k): v for k, v in data.get("return_wires", {}).items()}
@@ -119,7 +154,8 @@ def load_game(path):
 
     return {
         "game_name": data.get("game", "Unknown"),
-        "platform": data.get("platform", "Unknown"),
+        "platform": platform,
+        "platform_path": platform_path,
         "strobe_wires": strobe_wires,
         "return_wires": return_wires,
         "switch_map": switch_map,
@@ -212,3 +248,76 @@ def read_switch(game, col, row):
     closed = GPIO.input(ROW_PINS[row]) == GPIO.LOW
     GPIO.output(COL_PINS[col], GPIO.HIGH)
     return closed
+
+
+def pin_label(bcm):
+    """Return the connector position label (J2/J3) for a BCM pin based on current mapping."""
+    for i, p in enumerate(COL_PINS):
+        if p == bcm:
+            return _STROBE_LABELS[i] if i < len(_STROBE_LABELS) else f"Strobe {i}"
+    for i, p in enumerate(ROW_PINS):
+        if p == bcm:
+            return _RETURN_LABELS[i] if i < len(_RETURN_LABELS) else f"Return I{i}"
+    return f"BCM {bcm} (unassigned)"
+
+
+def bcm_to_name(bcm):
+    return pin_label(bcm)
+
+
+def remap_strobe(idx, new_bcm):
+    """Assign new_bcm to COL_PINS[idx], swapping with wherever new_bcm currently lives."""
+    old_bcm = COL_PINS[idx]
+    if old_bcm == new_bcm:
+        return
+    for i, p in enumerate(COL_PINS):
+        if p == new_bcm:
+            COL_PINS[i] = old_bcm
+            break
+    for i, p in enumerate(ROW_PINS):
+        if p == new_bcm:
+            ROW_PINS[i] = old_bcm
+            break
+    COL_PINS[idx] = new_bcm
+
+
+def remap_return(idx, new_bcm):
+    """Assign new_bcm to ROW_PINS[idx], swapping with wherever new_bcm currently lives."""
+    old_bcm = ROW_PINS[idx]
+    if old_bcm == new_bcm:
+        return
+    for i, p in enumerate(COL_PINS):
+        if p == new_bcm:
+            COL_PINS[i] = old_bcm
+            break
+    for i, p in enumerate(ROW_PINS):
+        if p == new_bcm:
+            ROW_PINS[i] = old_bcm
+            break
+    ROW_PINS[idx] = new_bcm
+
+
+
+def pin_continuity_scan():
+    """
+    Detect which pairs of GPIO pins are directly connected.
+
+    Drives each pin LOW in turn with all others pulled up.
+    Returns a set of frozensets, each containing two connected BCM numbers.
+    Leaves all pins as inputs when done; caller must call setup_gpio() to restore.
+    """
+    all_pins = COL_PINS + ROW_PINS
+
+    for p in all_pins:
+        GPIO.setup(p, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    connected = set()
+    for i, driven in enumerate(all_pins):
+        GPIO.setup(driven, GPIO.OUT, initial=GPIO.LOW)
+        time.sleep(0.0002)
+        for j, read in enumerate(all_pins):
+            if j != i and GPIO.input(read) == GPIO.LOW:
+                connected.add(frozenset({driven, read}))
+        GPIO.setup(driven, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    return connected
