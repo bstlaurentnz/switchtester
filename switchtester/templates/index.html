@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Switch Tester{% endblock %}
+{% block nav_title %}Switch Tester{% endblock %}
+
+{% block content %}
+<h1>Select Game</h1>
+{% if games %}
+  {% for slug, name in games %}
+  <a href="/game/{{ slug }}" class="btn">
+    {{ name }}
+    <span class="sub">{{ slug }}.json</span>
+  </a>
+  {% endfor %}
+{% else %}
+  <p style="color:#888">No game files found in the games/ directory.</p>
+{% endif %}
+{% endblock %}

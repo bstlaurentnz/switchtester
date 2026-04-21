@@ -1,0 +1,76 @@
+{
+    "game": "Bally Atlantis (1989)",
+    "platform": "bally-6803",
+    "strobe_wires": {
+        "0": "Wht-Red (CJ4-15)",
+        "1": "Wht-Blu (CJ4-14)",
+        "2": "Wht-Yel (CJ4-13)",
+        "3": "Wht-Orn (CJ4-12)",
+        "4": "Wht-Brn (CJ4-11)",
+        "5": "Wht-Vio (CJ4-1)"
+    },
+    "return_wires": {
+        "0": "Red (CJ4-10)",
+        "1": "Blu (CJ4-9)",
+        "2": "Yel (CJ4-8)",
+        "3": "Grn (CJ4-7)",
+        "4": "Wht (CJ4-6)",
+        "5": "Brn (CJ4-4)",
+        "6": "Orn (CJ4-3)",
+        "7": "Blk (CJ4-2)"
+    },
+    "switches": [
+        {"col": 0, "row": 0, "num": 1,  "name": "Drop Target #1 Left"},
+        {"col": 0, "row": 1, "num": 2,  "name": "Drop Target #2"},
+        {"col": 0, "row": 2, "num": 3,  "name": "Drop Target #3"},
+        {"col": 0, "row": 3, "num": 4,  "name": "Drop Target #4 Right"},
+        {"col": 0, "row": 4, "num": 5,  "name": "Cabinet Left"},
+        {"col": 0, "row": 5, "num": 6,  "name": "Credit"},
+        {"col": 0, "row": 6, "num": 7,  "name": "Cabinet Right"},
+        {"col": 0, "row": 7, "num": 8,  "name": "Outhole"},
+
+        {"col": 1, "row": 0, "num": 9,  "name": "Coin Chute Right #3"},
+        {"col": 1, "row": 1, "num": 10, "name": "Coin Chute Left #1"},
+        {"col": 1, "row": 2, "num": 11, "name": "Coin Chute Middle #2"},
+        {"col": 1, "row": 3, "num": 12, "name": "Top Lane A"},
+        {"col": 1, "row": 4, "num": 13, "name": "Top Lane B"},
+        {"col": 1, "row": 5, "num": 14, "name": "Slam"},
+        {"col": 1, "row": 6, "num": 15, "name": "Tilt"},
+        {"col": 1, "row": 7, "num": 16, "name": "Shooter Lane"},
+
+        {"col": 2, "row": 0, "num": 17, "name": "Left Bumper"},
+        {"col": 2, "row": 1, "num": 18, "name": "Middle Bumper"},
+        {"col": 2, "row": 2, "num": 19, "name": "Right Bumper"},
+        {"col": 2, "row": 3, "num": 20, "name": "Left Slingshot"},
+        {"col": 2, "row": 4, "num": 21, "name": "Right Slingshot"},
+        {"col": 2, "row": 5, "num": 22, "name": "Plug-Post Sensor"},
+        {"col": 2, "row": 6, "num": 23, "name": "Left Outlane"},
+        {"col": 2, "row": 7, "num": 24, "name": "Right Outlane"},
+
+        {"col": 3, "row": 0, "num": 25, "name": "Left Target Orange"},
+        {"col": 3, "row": 1, "num": 26, "name": "Left Target White"},
+        {"col": 3, "row": 2, "num": 27, "name": "Left Target Yellow"},
+        {"col": 3, "row": 3, "num": 28, "name": "Right Target Orange"},
+        {"col": 3, "row": 4, "num": 29, "name": "Right Target White"},
+        {"col": 3, "row": 5, "num": 30, "name": "Right Target Yellow"},
+        {"col": 3, "row": 6, "num": 31, "name": "Rebounders"},
+        {"col": 3, "row": 7, "num": 32, "name": "Turn Around Loop"},
+
+        {"col": 4, "row": 0, "num": 33, "name": "Middle Target Orange"},
+        {"col": 4, "row": 1, "num": 34, "name": "Middle Target White"},
+        {"col": 4, "row": 2, "num": 35, "name": "Middle Target Yellow"},
+        {"col": 4, "row": 3, "num": 36, "name": "Spinner"},
+        {"col": 4, "row": 4, "num": 37, "name": "Ramp Sensor"},
+        {"col": 4, "row": 5, "num": 38, "name": "Return Lanes"},
+        {"col": 4, "row": 6, "num": 39, "name": "Saucer"},
+        {"col": 4, "row": 7, "num": 40, "name": "Popper Dish"},
+
+        {"col": 5, "row": 1, "num": 42, "name": "Sub Ball Lower"},
+        {"col": 5, "row": 2, "num": 43, "name": "Sub Ball Upper"},
+        {"col": 5, "row": 3, "num": 44, "name": "Ball in Submarine"},
+        {"col": 5, "row": 4, "num": 45, "name": "Hold Bonus"},
+        {"col": 5, "row": 5, "num": 46, "name": "Left Trough #1"},
+        {"col": 5, "row": 6, "num": 47, "name": "Middle Trough #2"},
+        {"col": 5, "row": 7, "num": 48, "name": "Right Trough #3"}
+    ]
+}

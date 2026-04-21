@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ game.game_name }}{% endblock %}
+{% block nav_title %}{{ game.game_name }}{% endblock %}
+{% block nav_links %}<a href="/">Games</a>{% endblock %}
+
+{% block content %}
+<h1>{{ game.game_name }}</h1>
+<a href="/game/{{ slug }}/snapshot" class="btn">
+  Snapshot
+  <span class="sub">Current matrix state, auto-refreshes every second</span>
+</a>
+<a href="/game/{{ slug }}/monitor" class="btn">
+  Monitor
+  <span class="sub">Live switch open/close event log</span>
+</a>
+<a href="/game/{{ slug }}/diode" class="btn">
+  Diode Test
+  <span class="sub">Reverse-bias scan for shorted diodes</span>
+</a>
+<a href="/game/{{ slug }}/list" class="btn">
+  Switch List
+  <span class="sub">All switches with wire colours</span>
+</a>
+{% endblock %}

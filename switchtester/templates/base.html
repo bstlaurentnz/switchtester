@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Switch Tester{% endblock %}</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #1a1a1a; color: #e8e8e8; font-size: 16px; line-height: 1.5;
+  }
+  a { color: #7eb8f7; text-decoration: none; }
+  nav {
+    background: #111; padding: 0.75rem 1rem;
+    display: flex; align-items: center; gap: 1rem;
+    border-bottom: 1px solid #333;
+  }
+  nav .title { font-weight: 600; color: #e8e8e8; font-size: 1rem; flex: 1; }
+  nav a { font-size: 1rem; color: #7eb8f7; padding: 0.4rem 0.75rem; background: #242424; border: 1px solid #383838; border-radius: 6px; }
+  main { padding: 1rem; max-width: 600px; }
+  h1 { font-size: 1.25rem; margin-bottom: 1rem; }
+  h2 { font-size: 0.9rem; color: #888; margin-bottom: 0.75rem; font-weight: 400; }
+  .btn {
+    display: block; padding: 0.9rem 1rem;
+    background: #242424; border: 1px solid #383838; border-radius: 8px;
+    color: #e8e8e8; font-size: 1rem; margin-bottom: 0.5rem; text-align: left;
+  }
+  .btn:active { background: #2e2e2e; }
+  .btn .sub { font-size: 0.8rem; color: #888; display: block; margin-top: 0.15rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+  th {
+    text-align: left; padding: 0.5rem 0.4rem;
+    border-bottom: 1px solid #383838; color: #888; font-weight: 500;
+  }
+  td { padding: 0.45rem 0.4rem; border-bottom: 1px solid #252525; }
+  .ok { color: #5cb85c; }
+  .err { color: #e05252; }
+  .badge {
+    display: inline-block; padding: 0.15rem 0.45rem;
+    border-radius: 4px; font-size: 0.75rem; font-weight: 600;
+  }
+  .badge-closed { background: #1e3d1e; color: #7ec87e; }
+  .badge-opened { background: #3d1e1e; color: #c87e7e; }
+</style>
+{% block head %}{% endblock %}
+</head>
+<body>
+<nav>
+  <span class="title">{% block nav_title %}Switch Tester{% endblock %}</span>
+  {% block nav_links %}{% endblock %}
+</nav>
+<main>
+{% block content %}{% endblock %}
+</main>
+</body>
+</html>

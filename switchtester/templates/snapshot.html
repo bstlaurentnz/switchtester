@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Snapshot -- {{ game.game_name }}{% endblock %}
+{% block nav_title %}{{ game.game_name }}{% endblock %}
+{% block nav_links %}<a href="/game/{{ slug }}">Back</a>{% endblock %}
+{% block head %}<script>setTimeout(() => location.reload(), 1000);</script>{% endblock %}
+
+{% block content %}
+<h1>Snapshot</h1>
+<h2>Refreshes every second. Closed switches are highlighted.</h2>
+<div style="overflow-x:auto;margin-top:0.75rem">
+  <table style="width:auto;border-collapse:separate;border-spacing:3px">
+    {% for row_cells in grid %}
+    <tr>
+      {% for cell in row_cells %}
+      <td style="
+        padding:0.5rem 0.4rem;
+        border-radius:4px;
+        font-size:0.8rem;
+        text-align:center;
+        min-width:58px;
+        background:{% if cell.closed %}#1e3d1e{% else %}#222{% endif %};
+        color:{% if cell.closed %}#7ec87e{% else %}#555{% endif %}">
+        SW{{ cell.num }}<br>
+        <span style="font-size:0.65rem">{{ cell.name[:14] }}</span>
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

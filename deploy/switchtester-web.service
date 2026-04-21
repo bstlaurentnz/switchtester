@@ -1,0 +1,21 @@
+# Template only -- setup.sh generates the installed version with correct paths.
+#
+# To install manually:
+#   INSTALL_DIR=/path/to/switchtester
+#   SERVICE_USER=youruser
+#   sudo -E envsubst < deploy/switchtester-web.service > /etc/systemd/system/switchtester-web.service
+
+[Unit]
+Description=Switch Tester Web UI
+After=network.target
+
+[Service]
+Type=simple
+User=${SERVICE_USER}
+WorkingDirectory=${INSTALL_DIR}
+ExecStart=${INSTALL_DIR}/.venv/bin/switch-tester-web
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
