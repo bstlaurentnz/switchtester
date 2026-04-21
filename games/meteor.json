@@ -1,0 +1,73 @@
+{
+  "game": "Stern Meteor (1981)",
+  "platform": "stern-m200",
+
+  "strobe_wires": {
+    "0": "AJ4J2-1 Wht-Red / AJ4J2-2 Red-Yel",
+    "1": "AJ4J2-2 Brn-Wht / AJ4J3-1 (not used)",
+    "2": "AJ4J2-3 Wht-Blu",
+    "3": "AJ4J2-4 Wht-Yel",
+    "4": "AJ4J2-5 Wht-Red"
+  },
+
+  "return_wires": {
+    "1":  "AJ4J2-0 Brn / AJ4J3-8 Red-Wht",
+    "11": "AJ4J2-9 Gry / AJ4J3-10 Brn-Wht",
+    "12": "AJ4J2-10 Wht-Orn / AJ4J3-11 Blu",
+    "13": "AJ4J2-11 Wht-Blk / AJ4J3-12 (not used)",
+    "14": "AJ4J2-14 Wht-Grn / AJ4J3-13 (not used)",
+    "15": "AJ4J2-13 Wht-Brn / AJ4J3-14 Blu",
+    "16": "AJ4J2-14 Brn-Yel / AJ4J3-15 Blu-Orn",
+    "17": "AJ4J3-16 Yel"
+  },
+
+  "switches": [
+    { "col": 0, "row": 1,  "num": 1,  "name": "Coin Chute I (Left)" },
+    { "col": 1, "row": 1,  "num": 2,  "name": "Right 3-Bank Top Drop Target" },
+    { "col": 2, "row": 1,  "num": 3,  "name": "Not Used" },
+    { "col": 3, "row": 1,  "num": 4,  "name": "Not Used" },
+    { "col": 4, "row": 1,  "num": 5,  "name": "Outhole" },
+
+    { "col": 0, "row": 11, "num": 6,  "name": "Coin Chute II (Center)" },
+    { "col": 1, "row": 11, "num": 7,  "name": "Right 3-Bank Lower Drop Target" },
+    { "col": 2, "row": 11, "num": 8,  "name": "Not Used" },
+    { "col": 3, "row": 11, "num": 9,  "name": "Not Used" },
+    { "col": 4, "row": 11, "num": 10, "name": "Right Outlane" },
+
+    { "col": 0, "row": 12, "num": 11, "name": "Coin Chute III (Right)" },
+    { "col": 1, "row": 12, "num": 12, "name": "Right 3-Bank Middle Drop Target" },
+    { "col": 2, "row": 12, "num": 13, "name": "Top Left 3-Bank Top Drop Target" },
+    { "col": 3, "row": 12, "num": 14, "name": "6-Bank 'R' Drop Target" },
+    { "col": 4, "row": 12, "num": 15, "name": "Left Outlane" },
+
+    { "col": 0, "row": 13, "num": 16, "name": "Stand-Up Target" },
+    { "col": 1, "row": 13, "num": 17, "name": "Upper Right Bumper" },
+    { "col": 2, "row": 13, "num": 18, "name": "Top Left 3-Bank Lower Drop Target" },
+    { "col": 3, "row": 13, "num": 19, "name": "6-Bank 'O' Drop Target" },
+    { "col": 4, "row": 13, "num": 20, "name": "Right Return Lane" },
+
+    { "col": 0, "row": 14, "num": 21, "name": "Spin Target" },
+    { "col": 1, "row": 14, "num": 22, "name": "Upper Left Bumper" },
+    { "col": 2, "row": 14, "num": 23, "name": "Top Left 3-Bank Middle Drop Target" },
+    { "col": 3, "row": 14, "num": 24, "name": "6-Bank 'E' Drop Target" },
+    { "col": 4, "row": 14, "num": 25, "name": "Left Return Lane" },
+
+    { "col": 0, "row": 15, "num": 26, "name": "Credit Button" },
+    { "col": 1, "row": 15, "num": 27, "name": "Thumper Bumper" },
+    { "col": 2, "row": 15, "num": 28, "name": "Lower Left 3-Bank Top Drop Target" },
+    { "col": 3, "row": 15, "num": 29, "name": "6-Bank 'T' Drop Target" },
+    { "col": 4, "row": 15, "num": 30, "name": "Upper Rollover Button" },
+
+    { "col": 0, "row": 16, "num": 31, "name": "Tilt" },
+    { "col": 1, "row": 16, "num": 32, "name": "Right Slingshot" },
+    { "col": 2, "row": 16, "num": 33, "name": "Lower Left 3-Bank Middle Drop Target" },
+    { "col": 3, "row": 16, "num": 34, "name": "6-Bank 'E' Drop Target" },
+    { "col": 4, "row": 16, "num": 35, "name": "Middle Rollover Button" },
+
+    { "col": 0, "row": 17, "num": 36, "name": "Slam" },
+    { "col": 1, "row": 17, "num": 37, "name": "Left Slingshot" },
+    { "col": 2, "row": 17, "num": 38, "name": "Lower Left 3-Bank Lower Drop Target" },
+    { "col": 3, "row": 17, "num": 39, "name": "6-Bank 'R' Drop Target" },
+    { "col": 4, "row": 17, "num": 40, "name": "Lower Rollover Button" }
+  ]
+}
