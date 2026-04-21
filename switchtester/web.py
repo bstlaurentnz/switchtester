@@ -18,8 +18,8 @@ from .tester import diode_scan, load_game, scan_matrix, setup_gpio
 
 app = Flask(__name__)
 
-_game = None
-_game_slug = None
+_game: dict | None = None
+_game_slug: str | None = None
 _gpio_lock = threading.Lock()
 _games_dir = "games"
 
@@ -38,13 +38,14 @@ def _games_list():
     return result
 
 
-def _load_game_if_needed(slug):
+def _load_game_if_needed(slug: str) -> dict:
     global _game, _game_slug
     if _game_slug != slug:
         path = os.path.join(_games_dir, f"{slug}.json")
         _game = load_game(path)
         setup_gpio(_game)
         _game_slug = slug
+    assert _game is not None
     return _game
 
 
@@ -121,21 +122,24 @@ def monitor(slug):
 
 @app.route("/game/<slug>/monitor/stream")
 def monitor_stream(slug):
+    with _gpio_lock:
+        game = _load_game_if_needed(slug)
+
     def generate():
         prev = set()
         while True:
             with _gpio_lock:
-                current = scan_matrix(_game)
+                current = scan_matrix(game)
             for pos in current - prev:
                 col, row = pos
-                sw_num, name = _game["switch_map"].get(pos, (0, "?"))
+                sw_num, name = game["switch_map"].get(pos, (0, "?"))
                 yield "data: " + json.dumps({
                     "event": "closed", "num": sw_num, "name": name,
                     "col": col, "row": row,
                 }) + "\n\n"
             for pos in prev - current:
                 col, row = pos
-                sw_num, name = _game["switch_map"].get(pos, (0, "?"))
+                sw_num, name = game["switch_map"].get(pos, (0, "?"))
                 yield "data: " + json.dumps({
                     "event": "opened", "num": sw_num, "name": name,
                     "col": col, "row": row,
