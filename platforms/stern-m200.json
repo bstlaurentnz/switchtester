@@ -1,8 +1,8 @@
 {
-    "platform": "Stern M-200 MPU",
+    "platform": "stern-m200",
     "description": "Stern M-200 MPU closely derived from the Bally AS-2518-17, 5x8 switch matrix",
     "col_pins": [14, 15, 18, 24, 23],
-    "row_pins": [25, 8, 7, 1, 16, 12, 21, 20],
+    "row_pins": [25, 8, 7, 1, 20, 12, 21, 16],
     "strobe_labels": ["J2-1/J3-2", "J2-2/J3-3", "J2-3", "J2-4", "J2-5"],
     "return_labels": [
         "J2-8/J3-9", "J2-9/J3-10", "J2-10/J3-11", "J2-11/J3-12",
