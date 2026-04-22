@@ -1,4 +1,4 @@
-# Switch Tester Breakout Board Wiring - AS-2518-17
+# Switch Tester Breakout Board Wiring - AS-2518-17, Stern M100 and M200
 
 ![AS-2518-17 layout](switch_tester_perfboard_layout_as-2518-17.svg)
 
