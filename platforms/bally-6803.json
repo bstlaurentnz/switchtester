@@ -1,23 +1,23 @@
 {
     "platform": "bally-6803",
-    "description": "Bally 6803 platform, 6x8 switch matrix (48 switches). All signals on J4 (J4), 15-pin 0.100\" Molex KK.",
+    "description": "Bally 6803 platform, 6x8 switch matrix (48 switches). Signals on J3 and J4, 15-pin 0.100\" Molex KK. J4-6 is KEY; Return I4 (row 4) is accessible via J3-6 only.",
     "col_pins": [
-        14,
-        15,
-        18,
-        22,
-        23,
-        20
+        16,
+        13,
+        12,
+        6,
+        5,
+        14
     ],
     "row_pins": [
-        24,
-        1,
-        25,
-        8,
         7,
-        16,
-        12,
-        21
+        8,
+        25,
+        10,
+        24,
+        23,
+        18,
+        15
     ],
     "strobe_labels": [
         "J3-15/J4-15",
@@ -25,16 +25,16 @@
         "J3-13/J4-13",
         "J3-12/J4-12",
         "J3-11/J4-11",
-        "J3-1/J4-1"
+        "J4-1"
     ],
     "return_labels": [
-        "J4-10",
-        "J4-9",
-        "J4-8",
-        "J4-7",
-        "J4-6",
-        "J4-4",
-        "J4-3",
-        "J4-2"
+        "J3-10/J4-10",
+        "J3-9/J4-9",
+        "J3-8/J4-8",
+        "J3-7/J4-7",
+        "J3-6",
+        "J3-5/J4-4",
+        "J3-4/J4-3",
+        "J3-2/J4-2"
     ]
 }
