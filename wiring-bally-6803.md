@@ -7,24 +7,24 @@ Connects the Raspberry Pi GPIO header to the Bally 6803 switch matrix connectors
 
 ## Signal Table
 
-| Function  | BCM | Physical | CJ4    | CJ3    | Wire (CJ4) |
+| Function  | BCM | Physical | CJ3    | CJ4    | Wire (CJ4) |
 |-----------|-----|----------|--------|--------|------------|
-| Strobe 0  | 16  | 36       | CJ4-15 | CJ3-15 | Wht-Red    |
-| Strobe 1  | 13  | 33       | CJ4-14 | CJ3-14 | Wht-Blu    |
-| Strobe 2  | 12  | 32       | CJ4-13 | CJ3-13 | Wht-Yel    |
-| Strobe 3  | 6   | 31       | CJ4-12 | CJ3-12 | Wht-Grn    |
-| Strobe 4  | 5   | 29       | CJ4-11 | CJ3-11 | Wht-Brn    |
-| Strobe 5  | 14  | 8        | CJ4-1  | --     | Wht-Vio    |
-| Return I0 | 7   | 26       | CJ4-10 | CJ3-10 | Red        |
-| Return I1 | 8   | 24       | CJ4-9  | CJ3-9  | Blu        |
-| Return I2 | 25  | 22       | CJ4-8  | CJ3-8  | Yel        |
-| Return I3 | 10  | 19       | CJ4-7  | CJ3-7  | Grn        |
-| Return I4 | 24  | 18       | KEY    | CJ3-6  | Wht        |
-| Return I5 | 23  | 16       | CJ4-4  | CJ3-5  | Brn        |
-| Return I6 | 18  | 12       | CJ4-3  | CJ3-4  | Orn        |
-| Return I7 | 15  | 10       | CJ4-2  | CJ3-2  | Blk        |
+| Strobe 0  | 16  | 36       | CJ3-15 | CJ4-15 | Wht-Red    |
+| Strobe 1  | 13  | 33       | CJ3-14 | CJ4-14 | Wht-Blu    |
+| Strobe 2  | 12  | 32       | CJ3-13 | CJ4-13 | Wht-Yel    |
+| Strobe 3  | 6   | 31       | CJ3-12 | CJ4-12 | Wht-Grn    |
+| Strobe 4  | 5   | 29       | CJ3-11 | CJ4-11 | Wht-Brn    |
+| Strobe 5  | 14  | 8        | --     | CJ4-1  | Wht-Vio    |
+| Return I0 | 7   | 26       | CJ3-10 | CJ4-10 | Red        |
+| Return I1 | 8   | 24       | CJ3-9  | CJ4-9  | Blu        |
+| Return I2 | 25  | 22       | CJ3-8  | CJ4-8  | Yel        |
+| Return I3 | 22  | 15       | CJ3-7  | CJ4-7  | Grn        |
+| Return I4 | 24  | 18       | CJ3-6  | KEY    | Wht        |
+| Return I5 | 23  | 16       | CJ3-5  | CJ4-4  | Brn        |
+| Return I6 | 18  | 12       | CJ3-4  | CJ4-3  | Orn        |
+| Return I7 | 15  | 10       | CJ3-2  | CJ4-2  | Blk        |
 
-BCM 5, 6, 10, 13 are on odd physical header pins (29, 31, 19, 33).
+BCM 5, 6, 22, 13 are on odd physical header pins (29, 31, 15, 33).
 All others are on even physical header pins.
 
 

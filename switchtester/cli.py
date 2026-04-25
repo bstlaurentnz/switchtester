@@ -14,6 +14,7 @@ from .tester import (
     ROW_PINS,
     diode_scan,
     load_game,
+    detect_stuck_low_pins,
     pin_continuity_scan,
     pin_label,
     read_switch,
@@ -225,10 +226,17 @@ def cmd_pin_continuity(game):
     print("Connect a jumper between any two header pins.")
     print("Ctrl+C to stop.\n")
 
+    stuck = detect_stuck_low_pins()
+    if stuck:
+        for p in stuck:
+            print(f"WARNING: {pin_label(p)} (BCM {p}) is stuck LOW -- excluded from scan")
+        print("  (Hardware pull-up not working on this pin; likely a GPIO controller quirk.)")
+        print()
+
     prev = set()
     try:
         while True:
-            current = pin_continuity_scan()
+            current = pin_continuity_scan(skip=stuck)
 
             for pair in current - prev:
                 a, b = sorted(pair)

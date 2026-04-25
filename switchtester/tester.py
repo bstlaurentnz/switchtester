@@ -290,15 +290,32 @@ def remap_return(idx, new_bcm):
 
 
 
-def pin_continuity_scan():
+def detect_stuck_low_pins():
+    """
+    Return a list of BCM pins that read LOW when configured as input with pull-up.
+
+    On some hardware (e.g. Pi 5 RP1 controller) certain pins -- notably SPI
+    function pins like BCM 10 -- have a hardware pull-down that overrides the
+    software PUD_UP request and sit stuck LOW.  Callers should warn the user
+    and exclude these pins from continuity scanning.
+    """
+    all_pins = COL_PINS + ROW_PINS
+    for p in all_pins:
+        GPIO.setup(p, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    time.sleep(0.002)
+    return [p for p in all_pins if GPIO.input(p) == GPIO.LOW]
+
+
+def pin_continuity_scan(skip=()):
     """
     Detect which pairs of GPIO pins are directly connected.
 
     Drives each pin LOW in turn with all others pulled up.
+    Pins in `skip` are excluded entirely (use detect_stuck_low_pins() to find them).
     Returns a set of frozensets, each containing two connected BCM numbers.
     Leaves all pins as inputs when done; caller must call setup_gpio() to restore.
     """
-    all_pins = COL_PINS + ROW_PINS
+    all_pins = [p for p in COL_PINS + ROW_PINS if p not in skip]
 
     for p in all_pins:
         GPIO.setup(p, GPIO.IN, pull_up_down=GPIO.PUD_UP)
